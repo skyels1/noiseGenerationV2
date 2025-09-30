@@ -81,6 +81,45 @@ int main() {
             
         }
     }
+    // loop and all values over a set amount just go to highest
+    for(int i = 0; i < WIDTH; i++) {
+        for(int j = 0; j < HEIGHT; j++) {
+            if(noiseMap[i][j] >= 80) {
+                noiseMap[i][j] = 0;
+            }
+        }
+            
+    }
+
+    // loop both directions to spread the gradient
+    for(int i = 0; i < WIDTH; i++) {
+        for(int j = 0; j < HEIGHT; j++) {
+            for(int d = 0; d < 25; d++) {
+                int Oi = i + directions[d][0];
+                int Oj = j + directions[d][1];
+                if(Oi >= 0 && Oi < WIDTH && Oj >= 0 && Oj <HEIGHT) {
+                    if(noiseMap[Oi][Oj] < noiseMap[i][j]) {
+                        noiseMap[Oi][Oj] = noiseMap[i][j] * 0.9625;
+                    }
+                }
+            }
+            
+        }
+    }
+    for(int i = WIDTH - 1; i >= 0; i--) {
+        for(int j = HEIGHT - 1; j >= 0; j--) {
+            for(int d = 0; d < 25; d++) {
+                int Oi = i + directions[d][0];
+                int Oj = j + directions[d][1];
+                if(Oi >= 0 && Oi < WIDTH && Oj >= 0 && Oj <HEIGHT) {
+                    if(noiseMap[Oi][Oj] < noiseMap[i][j]) {
+                        noiseMap[Oi][Oj] = noiseMap[i][j] * 0.9625;
+                    }
+                }
+            }
+            
+        }
+    }
 
     // write to file
     FILE *f = fopen("newNoiseMap.ppm", "w");
@@ -94,8 +133,8 @@ int main() {
     for(int i = 0; i<HEIGHT; i++) {
         for(int j = 0; j<WIDTH; j++) {
             
-            fprintf(f, "%d %d %d ", noiseMap[i][j], noiseMap[i][j], noiseMap[i][j]);
-
+            fprintf(f, "%d %d %d ", noiseMap[i][j] * 3, 0, 255 / noiseMap[i][j]);
+            
         }
         fprintf(f, "\n");
     }
