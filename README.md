@@ -15,7 +15,7 @@ basically I wanted to remake the noise map I had before but with some ideas that
 ## updated image of what the code looks like currently running
 
 current commit\
-![(image) example of what the code looks like currently](/previews/newNoiseMap.png)
+![(image) example of what the code looks like currently](/previews/newNoiseMap2.png)
 
 ## info and installation
 
